@@ -1,0 +1,28 @@
+Option Explicit
+Private Sub Macro1_Click()
+   Dim fd As FileDialog
+   Set fd = Application.FileDialog(msoFileDialogFilePicker)
+   Dim vrtSelectedItem As Variant
+   Dim sheet As Worksheet
+   Dim book As Workbook
+   
+   With fd
+      .AllowMultiSelect = True
+      .Filters.Add "Excel Files", "*.xls*", 1
+      Application.ScreenUpdating = False
+      If .Show = -1 Then
+         For Each vrtSelectedItem In .SelectedItems
+             Set book = Workbooks.Open(vrtSelectedItem)
+             With book
+                 For Each sheet In book.Worksheets
+                     'Do something
+                 Next sheet
+             End With
+             book.Close SaveChanges:=True
+         Next vrtSelectedItem
+      End If
+      Application.ScreenUpdating = True
+   End With
+   Set fd = Nothing
+   MsgBox "Done!"
+End Sub
