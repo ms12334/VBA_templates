@@ -22,6 +22,7 @@ Private Sub Macro1_Click()
         End If
         Application.ScreenUpdating = True
     End With
+    Set book = Nothing  
     Set fd = Nothing
     MsgBox "Done!"
 End Sub
