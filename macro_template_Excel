@@ -2,8 +2,8 @@ Option Explicit
 Private Sub Macro1_Click()
     Dim fd As FileDialog
     Dim vrtSelectedItem As Variant
-    Dim book As Workbook
-    Dim sheet As Worksheet
+    Dim wb As Workbook
+    Dim ws As Worksheet
     Set fd = Application.FileDialog(msoFileDialogFilePicker)
     With fd
         .AllowMultiSelect = True
@@ -11,18 +11,18 @@ Private Sub Macro1_Click()
         Application.ScreenUpdating = False
         If .Show = -1 Then
             For Each vrtSelectedItem In .SelectedItems
-                Set book = Workbooks.Open(vrtSelectedItem)
-                With book
-                    For Each sheet In book.Worksheets
+                Set wb = Workbooks.Open(vrtSelectedItem)
+                With wb
+                    For Each ws In book.Worksheets
                         'Do something
-                    Next sheet
+                    Next ws
                 End With
-                book.Close SaveChanges:=True
+                wb.Close SaveChanges:=True
             Next vrtSelectedItem
         End If
         Application.ScreenUpdating = True
     End With
-    Set book = Nothing  
+    Set wb = Nothing  
     Set fd = Nothing
     MsgBox "Done!"
 End Sub
